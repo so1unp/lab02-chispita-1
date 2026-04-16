@@ -1,0 +1,82 @@
+1)- Sin touch archivo.txt:
+
+joakito1910@joakito1910-HP-Laptop-15-dy2xxx:~/lab02-chispita-1$ strace ./bin/fail
+execve("./bin/fail", ["./bin/fail"], 0x7ffd5abf6d10 /* 66 vars */) = 0
+brk(NULL)                               = 0x2ce05000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x742471658000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No existe el archivo o el directorio)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=74811, ...}) = 0
+mmap(NULL, 74811, PROT_READ, MAP_PRIVATE, 3, 0) = 0x742471645000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+fstat(3, {st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x742471400000
+mmap(0x742471428000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x742471428000
+mmap(0x7424715b0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000) = 0x7424715b0000
+mmap(0x7424715ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000) = 0x7424715ff000
+mmap(0x742471605000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x742471605000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x742471642000
+arch_prctl(ARCH_SET_FS, 0x742471642740) = 0
+set_tid_address(0x742471642a10)         = 19400
+set_robust_list(0x742471642a20, 24)     = 0
+rseq(0x742471643060, 0x20, 0, 0x53053053) = 0
+mprotect(0x7424715ff000, 16384, PROT_READ) = 0
+mprotect(0x402000, 4096, PROT_READ)     = 0
+mprotect(0x742471698000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x742471645000, 74811)           = 0
+openat(AT_FDCWD, "archivo.txt", O_RDONLY) = -1 ENOENT (No existe el archivo o el directorio)
+write(2, "error\n", 6error
+)                  = 6
+exit_group(1)                           = ?
++++ exited with 1 +++ 
+
+2)- Ya con el archivo creado:
+
+joakito1910@joakito1910-HP-Laptop-15-dy2xxx:~/lab02-chispita-1$ strace ./bin/fail
+execve("./bin/fail", ["./bin/fail"], 0x7ffc8f160980 /* 66 vars */) = 0
+brk(NULL)                               = 0x30443000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7a11d0ada000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No existe el archivo o el directorio)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=74811, ...}) = 0
+mmap(NULL, 74811, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7a11d0ac7000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+fstat(3, {st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7a11d0800000
+mmap(0x7a11d0828000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7a11d0828000
+mmap(0x7a11d09b0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000) = 0x7a11d09b0000
+mmap(0x7a11d09ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000) = 0x7a11d09ff000
+mmap(0x7a11d0a05000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7a11d0a05000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7a11d0ac4000
+arch_prctl(ARCH_SET_FS, 0x7a11d0ac4740) = 0
+set_tid_address(0x7a11d0ac4a10)         = 43064
+set_robust_list(0x7a11d0ac4a20, 24)     = 0
+rseq(0x7a11d0ac5060, 0x20, 0, 0x53053053) = 0
+mprotect(0x7a11d09ff000, 16384, PROT_READ) = 0
+mprotect(0x402000, 4096, PROT_READ)     = 0
+mprotect(0x7a11d0b1a000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7a11d0ac7000, 74811)           = 0
+openat(AT_FDCWD, "archivo.txt", O_RDONLY) = 3
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}) = 0
+getrandom("\xc5\xff\x29\x99\xfc\xd7\x76\xd4", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x30443000
+brk(0x30464000)                         = 0x30464000
+write(1, "ok\n", 3ok
+)                     = 3
+exit_group(0)                           = ?
++++ exited with 0 +++ 
+
+
+

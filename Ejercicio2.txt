@@ -1,0 +1,50 @@
+Para ver los errores y llamadas con claridad, lo que se hace es un strace ./bin/fail
+
+* Analisis de las llamadas al sistema que invoca:
+
+1)- Al arrancar el programa:
+execve(): Reemplaza el programa que esta ejecutando actualmente un proceso por uno nuevo, cargando el binario especificado en memoria, cargando su codigo y sobreescribir datos.
+
+2)- Gestion de memoria:
+mmap(): Mapea archivos o porciones de memoria.
+brk(): Modifica el tamaño del segmento de datos en un proceso, ajusta directamente la direccion final del heap. 
+mprotect(): Cambiar permisos de acceso de una region de memoria. 
+munmap(): Liberar region de memoria que ya no se usa.
+
+3)- Operaciones de archivos:
+access(): Comprobar si el usuario tiene acceso al archivo, en este caso, se uso para verificar la existencia del archivo.
+openat(): Abrir archivo y devolver un descriptor de archivos que seria un numero entero. 
+fstat(): Info detallada de un archivo abierto: tamaño, permisos y fecha de modificacion. Seria el estado del archivo. 
+close(): Cierra el archivo.
+pread(): Leer datos desde una posicion especifica.
+read(): Lee datos desde un descriptor de archivos.
+write(): Escribe datos en un archivo.
+
+4)- Configuracion del proceso e hilos:
+
+arch_prctl(): Establecer configuraciones muy especificas de la arquitectura del procesador, por ejemplo en mi caso (x86_64), configura almacenamiento local para hilos.
+set_tid_address(): Indicarle al kernel (nucleo) una direccion de memoria donde debe limpiar el ID del hilo 
+set_robust_list(): Registra lista de bloqueos que maneja el hilo. El kernel se encarga de liberar bloqueos para no dejar el sistema trabado.
+rseq(): En linux, es una optimizacion que permite ejecutar secuencias de codigo sin tener que bloquear recursos.
+prlimit64(): Establecer limites de recursos de un proceso.
+
+5)- Finalizacion del sistema:
+exit_group(): Terminar la ejecucion de un proceso, devolvio un 1 por error.
+
+* Errores:
+-El archivo.txt no existe o no existe el directorio.
+-El programa hace 2 llamadas a openat(); la primera devuelve 3 ya que se abrio el archivo de sistema con exito y la segunda un -1 ya que el archivo no existe
+-
+
+* Solucion: 
+-Tuve que crear el archivo.txt con touch, sus respectivas llamadas ahora:
+1- access() me sigue diciendo que no existe el archivo o directorio.
+2- openat() me da = 3 en ambas llamadas ya que el archivo existe.
+3- La llamada a write() anteriormente escribía 'error' en el descriptor 2 (salida de errores). Ahora escribe el mensaje 'ok' en el descriptor 1 (salida estándar o pantalla).
+4- exit() finalizo con 0, antes finalizaba con 1.
+
+
+
+
+
+
