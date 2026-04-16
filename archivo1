@@ -1,0 +1,5 @@
+Este es un archivo de texto de prueba creado para el Laboratorio de Sistemas Operativos. 
+Si estás leyendo esto dentro de "archivo2" o "archivo3", significa que las llamadas al sistema (open, read, write) o las funciones de la biblioteca estándar de C (fopen, fread, fwrite) han funcionado a la perfección.
+
+¡El programa mycopy.c compiló y ejecutó exitosamente!
+Fin de la transmisión.
