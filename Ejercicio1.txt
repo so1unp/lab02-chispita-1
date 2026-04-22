@@ -1,0 +1,15 @@
+Cuando se ejecuta 'strace bin/hola francisco' se puede encontrar esto al final:
+
+write(1, "hola francisco\n", 15hola francisco
+) = 15
+
+esta instrucción es printf() haciendo una llamada al sistema utilizando write(), donde:
+
+1  -->  es el descriptor, equivale a un stdout, encargado de mostrar por salida estándar.
+    
+"hola francisco\n"  -->  es el mensaje a mostrar.
+    
+15  -->  cantidad de bytes (contando el salto de línea y el espacio en blanco).
+
+hola francisco
+)  -->  salida real del programa (con el salto de línea incluido).
